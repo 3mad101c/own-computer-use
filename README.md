@@ -164,6 +164,24 @@ RapidOCR reads English well and Arabic acceptably; treat it as a reading aid and
 
 IME layouts can alter `computer_key` and `computer_hold_key` (virtual keycodes pass through the IME). Clipboard-paste typing is immune.
 
+---
+
+## بالعربي
+
+سيرفر MCP مجاني ومفتوح المصدر يدي أي وكيل ذكاء اصطناعي تحكم كامل في جهاز ويندوز بتاعك: شاشة، ماوس، كيبورد، وقراءة نص من الصورة بالعربي والإنجليزي. بيشتغل مع Claude Code وClaude Desktop وCodex وCursor وأي عميل MCP — على أي خطة، وبوابة خاصة لو عندك.
+
+**بيعمل إيه؟** أي حاجة بتعملها بماوس وكيبورد: مونتاج في CapCut أو Premiere، جداول في Excel، ردود على رسايل، تشغيل أي برنامج، وحتى إعدادات النظام. 21 أداة MCP تغطي الشاشة والتحكم والقرارات.
+
+**أمان أول:** كل أداة بتغيّر حاجة على الجهاز (نقر، كتابة، سكرول، فتح برنامج) مقفولة إلا لو أنت أنشأت ملف `CONSENT.txt` فيه كلمة `ALLOW` — وصلاحيته 10 دقايق بس. القراءة واللقطات شغالة بحرية.
+
+```bash
+git clone https://github.com/3mad101c/own-computer-use.git
+cd own-computer-use && pip install -r requirements.txt
+claude mcp add own-computer-use --scope user -- python C:\path	o\mcp_server.py
+```
+
+الترخيص MIT. المشروع بُني واختُبر على ويندوز 11.
+
 ## License
 
 MIT

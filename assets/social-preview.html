@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>own-computer-use — social preview</title>
+<style>
+  :root{
+    --ink:#0b1220; --line:#26314a; --accent:#2ee6a8; --blue:#4f8dff; --dim:#7d8aa5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1280px;height:640px;overflow:hidden;background:var(--ink)}
+  body{
+    font-family:ui-sans-serif,"Segoe UI",Inter,system-ui,sans-serif;
+    color:#e9eef8; display:grid; grid-template-columns:1fr 380px;
+    border:1px solid var(--line);
+  }
+  .left{padding:56px 56px 48px; display:flex; flex-direction:column; justify-content:space-between;}
+  .eyebrow{font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:600;}
+  h1{font-size:76px; line-height:.95; letter-spacing:-.035em; font-weight:800; margin-top:20px;}
+  h1 .thin{font-weight:300; color:#a9b6cd}
+  .sub{margin-top:26px; font-size:21px; line-height:1.45; color:#bcc8dc; max-width:640px;}
+  .pills{margin-top:32px; display:flex; gap:10px; flex-wrap:wrap}
+  .pill{font-size:14px; padding:7px 14px; border:1px solid #2c3a55; border-radius:999px; color:#c8d4e8; background:#111a2b;}
+  .pill.hot{border-color:#1f6f57;color:#8ff0cc;background:#0d2a23}
+  .foot{font-size:14px;color:var(--dim);font-family:ui-monospace,Consolas,monospace}
+  .right{border-left:1px solid var(--line); background:#0e1626; padding:44px 34px; display:flex; flex-direction:column; gap:8px;}
+  .num{font-size:13px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase}
+  .big{font-size:64px;font-weight:800;letter-spacing:-.04em;line-height:1;color:#fff}
+  .big span{font-size:24px;color:var(--accent);font-weight:600;letter-spacing:0}
+  .row{display:flex;align-items:baseline;gap:12px;margin-top:6px}
+  .bar{height:6px;background:#1a2438;border-radius:99px;overflow:hidden;margin-top:6px}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--accent))}
+  .guard{margin-top:auto;border-top:1px solid #1e2a40;padding-top:18px;font-size:14px;line-height:1.6;color:#9fb0c9}
+  .guard b{color:#fff;font-weight:600}
+  .lock{color:var(--accent)}
+</style>
+</head>
+<body>
+  <div class="left">
+    <div>
+      <div class="eyebrow">MCP server · Windows · MIT</div>
+      <h1>own<span class="thin">-</span>computer<span class="thin">-</span>use</h1>
+      <p class="sub">Give any AI agent real control of your PC: screen, mouse, keyboard, OCR in Arabic and English. Every mutating action is gated behind your explicit consent file.</p>
+      <div class="pills">
+        <span class="pill hot">Claude Code</span>
+        <span class="pill">Claude Desktop</span>
+        <span class="pill">Codex</span>
+        <span class="pill">Cursor</span>
+        <span class="pill">Any MCP client</span>
+      </div>
+    </div>
+    <div class="foot">github.com/3mad101c/own-computer-use</div>
+  </div>
+
+  <div class="right">
+    <div>
+      <div class="num">Tools</div>
+      <div class="big">21 <span>MCP</span></div>
+    </div>
+    <div style="margin-top:14px">
+      <div class="num">Mutating tools gated</div>
+      <div class="row"><div class="big" style="font-size:44px">9<span>/9</span></div></div>
+      <div class="bar"><i style="width:100%"></i></div>
+    </div>
+    <div style="margin-top:14px">
+      <div class="num">Read-only tools free</div>
+      <div class="row"><div class="big" style="font-size:44px">4</div></div>
+      <div class="bar"><i style="width:44%"></i></div>
+    </div>
+    <div class="guard">
+      <span class="lock">Lock</span> <b>CONSENT.txt</b> required, expires in 10 minutes.<br>
+      Command-injection guard pen-tested 6/6.<br>
+      Full audit log of every action.
+    </div>
+  </div>
+</body>
+</html>
