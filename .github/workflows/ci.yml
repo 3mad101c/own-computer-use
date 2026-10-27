@@ -22,3 +22,6 @@ jobs:
 
       - name: MCP registration test
         run: python test_registration.py
+
+      - name: Security matrix (9 mutating tools must be blocked)
+        run: python test_security.py

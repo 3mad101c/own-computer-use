@@ -32,7 +32,7 @@ This is full-machine control, not a browser extension. Anything a person does wi
 
 Writing quality is a separate skill. When the agent drafts personal messages on your behalf, pair it with the `humanizer` skill in Claude Code: replies in Messenger, WhatsApp, or email come out in a natural human voice instead of sounding like a model, and you read them before anything is sent.
 
-## The 18 tools
+## The 21 tools
 
 | Category | Tools |
 |---|---|
@@ -76,6 +76,8 @@ ALLOW send-reply-to-messenger
 Blocked without it: click, type, key (Enter), scroll, drag, mouse down/up, hold key, batch, open_application. Free: screenshot, zoom, OCR, cursor position, clipboard read.
 
 The gate auto-expires. A misaligned model cannot click Submit, type into your apps, or send messages unless you deliberately created that file within the last ten minutes. `computer_open_application` also rejects shell metacharacters (`& | ^ < > ! % "`) before any process starts, and OCR output is returned verbatim, never executed.
+
+Every claim in this section is verified by a script you can run: `python test_security.py` (13-tool matrix) and `python test_security.py --injection` (6 payloads). The full model, including what the gates do NOT protect against, is in [SECURITY.md](SECURITY.md).
 
 **Audit log.** Every executed action lands in `actions.log` with a timestamp and its arguments (1 MB rotation). `computer_review` turns the log into a verdict. A failsafe on the host side: jamming the mouse into a screen corner aborts input injection.
 
