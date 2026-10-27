@@ -1,6 +1,7 @@
 # own-computer-use
 
-![License](https://img.shields.io/badge/license-MIT-green) ![Platform](https://img.shields.io/badge/platform-Windows-blue) ![Python](https://img.shields.io/badge/python-3.10%2B-blue) ![Tools](https://img.shields.io/badge/MCP%20tools-21-orange) ![CI](https://img.shields.io/badge/CI-GitHub%20Actions-blueviolet)
+![License](https://img.shields.io/badge/license-MIT-green) ![Platform](https://img.shields.io/badge/platform-Windows-blue) ![Python](https://img.shields.io/badge/python-3.10%2B-blue) ![Tools](https://img.shields.io/badge/MCP%20tools-21-orange) ![PyPI](https://img.shields.io/pypi/v/own-computer-use-mcp?color=blue)
+![CI](https://img.shields.io/badge/CI-GitHub%20Actions-blueviolet)
 
 ![Demo](assets/demo.gif)
 
@@ -85,12 +86,34 @@ Every claim in this section is verified by a script you can run: `python test_se
 
 Windows, Python 3.10+.
 
+**One line (recommended)** — from PyPI, no clone needed:
+
+```bash
+claude mcp add own-computer-use --scope user -- uvx own-computer-use-mcp
+claude mcp list    # expect: own-computer-use ... Connected
+```
+
+Add OCR support to the installed package:
+
+```bash
+uvx --with rapidocr-onnxruntime own-computer-use-mcp
+```
+
+**From source** — if you want to edit the code:
+
 ```bash
 git clone https://github.com/3mad101c/own-computer-use.git
 cd own-computer-use
 pip install -r requirements.txt
 claude mcp add own-computer-use --scope user -- python C:\path\to\mcp_server.py
 claude mcp list    # expect: own-computer-use ... Connected
+```
+
+**Verify the safety gates yourself** (see [SECURITY.md](SECURITY.md)):
+
+```bash
+python test_security.py               # 13/13: 9 mutating tools blocked, 4 read-only free
+python test_security.py --injection   # 6/6: shell metacharacters rejected
 ```
 
 Claude Desktop (`claude_desktop_config.json`):
