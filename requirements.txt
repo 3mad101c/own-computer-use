@@ -1,0 +1,5 @@
+anthropic
+mss
+pillow
+pyautogui
+pyperclip
