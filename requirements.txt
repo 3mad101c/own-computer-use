@@ -3,3 +3,5 @@ mss
 pillow
 pyautogui
 pyperclip
+fastmcp
+rapidocr-onnxruntime

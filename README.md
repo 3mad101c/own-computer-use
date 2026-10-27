@@ -22,6 +22,19 @@ Desktop computer-use features in commercial AI clients are locked behind plans a
 
 **Two supervision agents** `computer_selfcheck` verifies every subsystem (imports, audit log, capture, OCR engine, consent gate) and repairs what it can automatically. `computer_review` reads the audit log and returns CLEAN or REVIEW NEEDED by checking the last 30 actions against the task you state, flagging every action with real-world effects.
 
+## What agents can actually do with it
+
+This is full-machine control, not a browser extension. Anything a person does with a mouse and keyboard, the agent does through these 18 tools:
+
+- **Every installed program.** Photoshop, CapCut, Premiere, Excel, Word, PowerPoint, OBS, Steam launchers, your own builds. `computer_open_application` starts them and reports the truth; clicks, typing, and hotkeys drive them.
+- **Video and photo editing.** The agent can cut clips in CapCut or Premiere, drag timeline handles (press-hold via `computer_mouse_down_up`), apply filters through menus that need millisecond timing (`computer_batch`), and export.
+- **Spreadsheets and documents.** Fill Excel cell by cell, format in Word, build slide decks, run macros with `computer_key`.
+- **Messaging and email.** Read a thread with OCR, draft a reply, and send it once you approve. Reading needs no consent; sending always does.
+- **Web apps.** Facebook, Telegram Web, dashboards, admin panels. OCR reads Arabic and English text on screen, so the agent can act on pages even where DOM tooling fails.
+- **System work.** File Explorer, Control Panel dialogs, installers you built, settings panes. If it renders on your screen, it is reachable.
+
+Writing quality is its own skill. When the agent writes personal messages on your behalf, pair it with the `humanizer` skill in Claude Code: replies in Messenger, WhatsApp, or email draft in a natural human voice (varied sentence rhythm, no AI tells), then pass your review before sending. The consent gate means nothing goes out until you have read it.
+
 ## Safety, enforced in code
 
 Three gates sit between an agent and your machine.
