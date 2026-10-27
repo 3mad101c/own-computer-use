@@ -2,6 +2,8 @@
 
 ![License](https://img.shields.io/badge/license-MIT-green) ![Platform](https://img.shields.io/badge/platform-Windows-blue) ![Python](https://img.shields.io/badge/python-3.10%2B-blue) ![Tools](https://img.shields.io/badge/MCP%20tools-21-orange) ![CI](https://img.shields.io/badge/CI-GitHub%20Actions-blueviolet)
 
+![Demo](assets/demo.gif)
+
 A self-hosted MCP server that gives AI agents real control of a Windows PC: screen reading with built-in OCR (Arabic and English), mouse, keyboard, clipboard, and app launching. It runs on any plan, with any client, and blocks every action that could affect the outside world unless you explicitly allow it.
 
 Works with Claude Code, Claude Desktop, Codex, Cursor, or any MCP client. Python only, no cloud component, no telemetry.
