@@ -26,13 +26,13 @@ Three gates sit between an agent and your machine.
 
 **Self-harm guard.** Typing and key presses are blocked while an agent surface holds focus (Claude, VS Code, terminals). Text aimed at a chat window would land in the conversation itself, or execute as a shell command.
 
-**Consent gate.** `computer_type` and `computer_key(Enter)` are blocked at server level unless a file named `CONSENT.txt` exists next to the server, starts with `ALLOW`, and is less than 10 minutes old:
+**Consent gate.** Every machine-mutating tool is blocked at server level unless a file named `CONSENT.txt` exists next to the server, starts with `ALLOW`, and is less than 10 minutes old: click, type, key (Enter), scroll, drag, mouse down/up, hold key, batch, and open_application. Read-only tools (screenshot, zoom, OCR, cursor position, clipboard read) stay free.
 
 ```
 ALLOW send-reply-to-messenger
 ```
 
-The gate auto-expires. A misaligned model cannot type into your apps or send messages, even with a jailbroken prompt, unless you deliberately created that file within the last ten minutes. Screenshots, OCR, scrolling, and app launching stay free.
+The gate auto-expires. A misaligned model cannot click Submit, type into your apps, or send messages unless you deliberately created that file within the last ten minutes. Injection-tested: `computer_open_application` rejects shell metacharacters (`& | ^ < > ! % "`) before any process starts, and OCR output is returned verbatim, never executed.
 
 **Audit log.** Every executed action lands in `actions.log` with a timestamp and its arguments (1 MB rotation). `computer_review` turns the log into a verdict. A failsafe on the host side: jamming the mouse into a screen corner aborts input injection.
 

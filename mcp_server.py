@@ -6,6 +6,7 @@ Run: registered as stdio server; `python mcp_server.py` is executed by Claude Co
 
 import base64
 import os
+import re
 import time
 
 from fastmcp import FastMCP
@@ -106,7 +107,11 @@ def computer_click(
     clicks: int = 1,
 ) -> str:
     """Click at (x, y) in the LAST screenshot's pixel space. button: left|right|middle,
-    clicks: 1=single, 2=double, 3=triple (select line/paragraph)."""
+    clicks: 1=single, 2=double, 3=triple (select line/paragraph).
+    Outbound gate: a click can press Submit/Send/Delete — needs fresh CONSENT.txt."""
+    consent = outbound_guard("computer_click")
+    if consent:
+        return consent
     action = {1: "left_click", 2: "double_click", 3: "triple_click"}.get(clicks, "left_click")
     if button != "left":
         action = f"{button}_click"
@@ -144,6 +149,9 @@ def computer_key(key: str) -> str:
 @mcp.tool
 def computer_scroll(x: int, y: int, direction: str = "down", amount: int = 3) -> str:
     """Scroll at (x, y). direction: up|down|left|right; amount in wheel notches."""
+    consent = outbound_guard("computer_scroll")
+    if consent:
+        return consent
     result = execute_action(
         "scroll", {"x": x, "y": y, "scroll_direction": direction, "scroll_amount": amount},
         CURRENT_SCALE[0],
@@ -154,6 +162,9 @@ def computer_scroll(x: int, y: int, direction: str = "down", amount: int = 3) ->
 @mcp.tool
 def computer_drag(start_x: int, start_y: int, x: int, y: int) -> str:
     """Drag from (start_x, start_y) to (x, y) — file moves, sliders, selection."""
+    consent = outbound_guard("computer_drag")
+    if consent:
+        return consent
     result = execute_action(
         "left_click_drag",
         {"start_x": start_x, "start_y": start_y, "x": x, "y": y},
@@ -181,6 +192,9 @@ def computer_batch(actions: list[dict]) -> str:
     screenshot-space rule. Example: [{"action":"left_click","input":{"x":100,"y":50}},
     {"action":"key","input":{"key":"Down"}},{"action":"key","input":{"key":"Return"}}].
     Returns one result line per action."""
+    consent = outbound_guard("computer_batch")
+    if consent:
+        return consent
     lines = []
     for item in actions:
         name = item.get("action", "")
@@ -206,6 +220,9 @@ def computer_wait(seconds: float = 2) -> str:
 def computer_mouse_down_up(action: str = "down") -> str:
     """Hold or release the LEFT mouse button without moving: action down|up.
     For press-drag-press-drag-... sequences pyautogui can't do in one call."""
+    consent = outbound_guard("computer_mouse_down_up")
+    if consent:
+        return consent
     return str(execute_action(f"left_mouse_{action}" if action in ("down", "up") else "left_mouse_down", {}, CURRENT_SCALE[0]))
 
 
@@ -213,6 +230,9 @@ def computer_mouse_down_up(action: str = "down") -> str:
 def computer_hold_key(key: str, duration: float = 1) -> str:
     """Hold a key for duration seconds then release (e.g. Shift for click-select
     ranges). One chord only — no '+' combos."""
+    consent = outbound_guard("computer_hold_key")
+    if consent:
+        return consent
     return str(execute_action("hold_key", {"key": key, "duration": duration}, CURRENT_SCALE[0]))
 
 
@@ -231,11 +251,18 @@ def computer_open_application(target: str) -> str:
     opened (window appeared) / running-no-window / crashed / nothing-launched.
     Windows: use `start` semantics, e.g. "notepad" or "chrome". Waits up to 8s
     for a visible window."""
+    consent = outbound_guard("computer_open_application")
+    if consent:
+        return consent
     import subprocess
     import time as _t
 
     audit_open = {"target": target}
     audit("open_application", audit_open)
+    # Command-injection guard: strip cmd metacharacters (& | ^ < > ! % "). A
+    # compromised model could otherwise chain commands through `cmd /c start`.
+    if re.search(r'[&|^<>!%"]', target):
+        return "BLOCKED: target contains shell metacharacters (injection guard)."
     try:
         proc = subprocess.Popen(["cmd", "/c", "start", "", target],
                                 shell=False,
