@@ -1,6 +1,8 @@
 # own-computer-use
 
-A self-hosted MCP server that gives AI agents real control of a Windows PC: screen reading with built-in OCR (Arabic and English), mouse, keyboard, clipboard, and app launching. It runs on any plan, with any client, and blocks every action that could affect the outside world unless you explicitly allow it.
+![License](https://img.shields.io/badge/license-MIT-green) ![Platform](https://img.shields.io/badge/platform-Windows-blue) ![Python](https://img.shields.io/badge/python-3.10%2B-blue) ![Tools](https://img.shields.io/badge/MCP%20tools-18-orange) ![CI](https://img.shields.io/badge/CI-GitHub%20Actions-blueviolet)
+
+A self-hosted MCP server that gives AI agents real control of a Windows PC: screen reading with built-in OCR (Arabic and English), mouse, keyboard, clipboard, and app launching. It runs on any plan, with any client, and blocks every action that could affect the outside world unless you explicitly allow it. that gives AI agents real control of a Windows PC: screen reading with built-in OCR (Arabic and English), mouse, keyboard, clipboard, and app launching. It runs on any plan, with any client, and blocks every action that could affect the outside world unless you explicitly allow it.
 
 Works with Claude Code, Claude Desktop, Codex, Cursor, or any MCP client. Python only, no cloud component, no telemetry.
 
@@ -104,7 +106,7 @@ A few decisions worth knowing before you extend it.
 **Files:**
 
 ```
-mcp_server.py   FastMCP stdio server: 17 tools, guards, consent gate, OCR
+mcp_server.py   FastMCP stdio server: 18 tools, guards, consent gate, OCR
 screen.py       capture, coordinate mapping, input actions, audit log
 agent.py        optional standalone Claude-API computer-use loop
 skills/         SKILL.md teaching agents the look-act-look discipline

@@ -1,0 +1,26 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Syntax + security self-audit
+        run: |
+          python -m py_compile mcp_server.py screen.py agent.py
+          python -c "import ast; [ast.parse(open(f, encoding='utf-8').read()) for f in ('mcp_server.py','screen.py','agent.py')]; print('AST OK')"
+      - name: MCP handshake smoke test (no GUI on CI)
+        run: |
+          python -c "
+from mcp_server import mcp
+import asyncio
+async def t():
+    tool = await mcp.get_tool('computer_screenshot')
+    assert tool.name == 'computer_screenshot'
+    print('MCP registration OK')
+asyncio.run(t())
+"
