@@ -465,6 +465,43 @@ def computer_review(task_description: str = "") -> str:
     ) + f"\nverdict: {verdict}"
 
 
+@mcp.tool
+def computer_capture_monitor(monitor: int = 1) -> Image:
+    """Screenshot ONE physical monitor (1..N). computer_screenshot captures
+    the whole virtual desktop; use this to zoom on one display on multi-monitor
+    setups. List displays with computer_display_overview."""
+    b64, scale = capture_screen(monitor=monitor)
+    CURRENT_SCALE[0] = scale or 1.0
+    return Image(data=base64.standard_b64decode(b64), format="png")
+
+
+@mcp.tool
+def computer_display_overview() -> str:
+    """List all physical monitors with resolution and virtual-desktop position.
+    Returns JSON array: index, left, top, width, height. Use before
+    computer_capture_monitor to pick the right display index."""
+    from screen import list_monitors
+
+    import json as _json
+
+    return _json.dumps(list_monitors())
+
+
+@mcp.tool
+def computer_teach_step(instruction: str) -> str:
+    """Teach mode (stub scaffold): records that the HUMAN wants to demo an
+    action for the agent to repeat. Returns guidance text. Full playback
+    recording is planned; use computer_batch scripts for repeatable sequences
+    today."""
+    audit("teach_step", {"instruction": instruction})
+    return (
+        "Teach mode: perform the action manually now. The agent observes via "
+        "computer_read_screen / computer_screenshot between your steps, then "
+        "replays the sequence with computer_batch. For durable automation, "
+        "write the steps as a batch JSON list."
+    )
+
+
 if __name__ == "__main__":
     # Warm the heavy libs in a boot thread: first tool call must not pay the
     # ~60s pyautogui import on slow machines.

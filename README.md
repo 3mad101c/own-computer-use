@@ -1,6 +1,6 @@
 # own-computer-use
 
-![License](https://img.shields.io/badge/license-MIT-green) ![Platform](https://img.shields.io/badge/platform-Windows-blue) ![Python](https://img.shields.io/badge/python-3.10%2B-blue) ![Tools](https://img.shields.io/badge/MCP%20tools-18-orange) ![CI](https://img.shields.io/badge/CI-GitHub%20Actions-blueviolet)
+![License](https://img.shields.io/badge/license-MIT-green) ![Platform](https://img.shields.io/badge/platform-Windows-blue) ![Python](https://img.shields.io/badge/python-3.10%2B-blue) ![Tools](https://img.shields.io/badge/MCP%20tools-21-orange) ![CI](https://img.shields.io/badge/CI-GitHub%20Actions-blueviolet)
 
 A self-hosted MCP server that gives AI agents real control of a Windows PC: screen reading with built-in OCR (Arabic and English), mouse, keyboard, clipboard, and app launching. It runs on any plan, with any client, and blocks every action that could affect the outside world unless you explicitly allow it.
 
@@ -12,7 +12,7 @@ Desktop computer-use features in commercial AI clients are locked behind plans a
 
 ## What the agent can actually do
 
-This is full-machine control, not a browser extension. Anything a person does with a mouse and keyboard, the agent does through these 18 tools.
+This is full-machine control, not a browser extension. Anything a person does with a mouse and keyboard, the agent does through these 21 tools.
 
 **Every installed program.** Photoshop, CapCut, Premiere, Excel, Word, PowerPoint, OBS, game launchers, your own builds. `computer_open_application` starts them and reports what actually happened; clicks, typing, and hotkeys drive them.
 
@@ -37,6 +37,8 @@ Writing quality is a separate skill. When the agent drafts personal messages on 
 | See | `computer_screenshot` (entire virtual screen, auto-scaled to model limits) · `computer_zoom` (magnify a region; coordinates stay in full-screenshot space) · `computer_read_screen` (built-in OCR, Arabic and English, optional atomic `target_title` focus+read) |
 | Act *(consent-gated)* | `computer_click` (left/right/middle, single/double/triple) · `computer_type` (clipboard paste, Arabic and Unicode safe) · `computer_key` · `computer_hold_key` · `computer_scroll` · `computer_drag` · `computer_mouse_down_up` (press-hold for sliders and multi-select) |
 | Batch *(consent-gated)* | `computer_batch` — several actions milliseconds apart in one call, for timing-critical UI: menus that close on blur, mid-flight buttons |
+| Multi-monitor | `computer_capture_monitor` (screenshot ONE physical display 1..N) · `computer_display_overview` (list every monitor: index, resolution, virtual-desktop position) |
+| Teach | `computer_teach_step` (scaffold: human performs an action, agent observes and replays it as a batch sequence) |
 | System | `computer_open_application` *(consent-gated, injection-guarded)* — honest launch report: opened, crashed on startup, no window after 8s · `computer_focus_window` (bring any window forward by title substring) · `computer_clipboard` (read/write) · `computer_cursor_position` · `computer_wait` |
 | Agents | `computer_selfcheck` (verify + auto-repair imports, audit log, capture, OCR, gate) · `computer_review` (audit the last 30 actions against your stated task, return CLEAN or REVIEW NEEDED) |
 
@@ -145,7 +147,7 @@ A few decisions worth knowing before you extend it.
 **Files:**
 
 ```
-mcp_server.py   FastMCP stdio server: 18 tools, guards, consent gate, OCR
+mcp_server.py   FastMCP stdio server: 21 tools, guards, consent gate, OCR
 screen.py       capture, coordinate mapping, input actions, audit log
 agent.py        optional standalone Claude-API computer-use loop
 skills/         SKILL.md teaching agents the look-act-look discipline

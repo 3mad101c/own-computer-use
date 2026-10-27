@@ -27,6 +27,9 @@ EXPECTED = {
     "computer_wait",
     "computer_selfcheck",
     "computer_review",
+    "computer_capture_monitor",
+    "computer_display_overview",
+    "computer_teach_step",
 }
 
 

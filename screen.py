@@ -44,16 +44,34 @@ def _pyautogui():
     return pyautogui
 
 
-def capture_screen():
-    """Capture full virtual screen (all monitors), downscale if needed.
-    Returns (b64_png, scale)."""
+def list_monitors():
+    """Enumerate physical monitors: [{"index": mss-index, "left","top","width","height"}].
+    mss monitors[0] is the virtual deskatop entry; monitors[1:] are real ones."""
+    import mss
+
+    out = []
+    with mss.mss() as sct:
+        for i, mon in enumerate(sct.monitors):
+            if i == 0:
+                continue
+            out.append({
+                "index": i,
+                "left": mon["left"], "top": mon["top"],
+                "width": mon["width"], "height": mon["height"],
+            })
+    return out
+
+
+def capture_screen(monitor: int = 0):
+    """Capture a screen region, downscale to MAX_EDGE. Returns (b64_png, scale).
+    monitor=0: entire virtual desktop (all monitors merged, default). Never
+    misses an app opened on the other display. monitor=1..N: one physical
+    monitor (mss numbering), for computer_capture_monitor."""
     import mss
     from PIL import Image
 
     with mss.mss() as sct:
-        # monitors[0] = entire virtual screen (all monitors merged) - immune to
-        # "app opened on the other display" mismatch. mon=1 is primary only.
-        shot = sct.shot(mon=0)
+        shot = sct.shot(mon=monitor)
         img = Image.open(shot)
         orig_w, orig_h = img.size
         scale = 1.0
