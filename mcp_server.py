@@ -502,7 +502,8 @@ def computer_teach_step(instruction: str) -> str:
     )
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """Console entry point (pyproject [project.scripts]) and module run."""
     # Warm the heavy libs in a boot thread: first tool call must not pay the
     # ~60s pyautogui import on slow machines.
     import threading
@@ -518,3 +519,7 @@ if __name__ == "__main__":
 
     threading.Thread(target=_prewarm, daemon=True).start()
     mcp.run()  # stdio transport — Claude Code launches and talks over stdin/stdout
+
+
+if __name__ == "__main__":
+    main()

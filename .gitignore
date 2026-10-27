@@ -8,3 +8,6 @@ CONSENT.txt
 *.jpeg
 .env
 *.zip
+dist/
+build/
+*.egg-info/
